@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Flashcards</title>
+
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  min-height: 100vh;
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  margin: 30px 0;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: 0.5px;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  width: 240px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* 🔥 fixes alignment */
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Image wrapper (important for perfect alignment) */
+.card img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;       /* 🔥 clean circular avatar */
+  border: 4px solid #e0e7ff;
+  margin-bottom: 15px;
+}
+
+/* Text */
+.card-body {
+  text-align: center;       /* 🔥 centered text */
+  width: 100%;
+}
+
+.card-body p {
+  font-size: 14px;
+  color: #475569;
+  margin: 6px 0;
+}
+
+.label {
+  font-weight: 600;
+  color: #0f766e;
+}
+  </style>
+</head>
+<body>
+
+  <h1>Student Flashcards</h1>
+
+  <div class="container" id="cardContainer"></div>
+
+  <script>
+    const API_URL = "http://localhost:3000/students";
+
+    async function loadStudents() {
+      try {
+        const res = await fetch(API_URL);
+        const students = await res.json();
+
+        const container = document.getElementById("cardContainer");
+        container.innerHTML = "";
+
+        students.forEach(student => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          card.innerHTML = `
+            <img src="http://localhost:3000/${student.image}" alt="Student Image" />
+
+            <div class="card-body">
+              <p><span class="label">Name:</span> ${student.name}</p>
+              <p><span class="label">Course:</span> ${student.course}</p>
+              <p><span class="label">City:</span> ${student.city}</p>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+      } catch (error) {
+        console.error("Error loading students:", error);
+      }
+    }
+
+    loadStudents();
+  </script>
+
+</body>
+</html>

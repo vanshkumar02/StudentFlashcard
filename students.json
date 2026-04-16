@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1776311333550,
+    "name": "Vansh",
+    "course": "B.Tech CSE",
+    "image": "uploads\\1776311333527-11.jpg",
+    "city": "Bareilly"
+  },
+  {
+    "id": 1776316059411,
+    "name": "Satendra",
+    "course": "B.Tech CSE",
+    "image": "uploads\\1776316059403-img1.avif",
+    "city": "Bareilly"
+  }
+]
